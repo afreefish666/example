@@ -28,7 +28,7 @@ jobs:
             })
 
     - name: Fetch the latest version from sharelatex server
-      uses: afreefish666/example@master
+      uses: afreefish666/example@main
       with:
         SHARELATEX_PROJECT_ID: ${{ secrets.SHARELATEX_PROJECT_ID }}
         SHARELATEX_COOKIE: ${{ secrets.SHARELATEX_COOKIE }}
