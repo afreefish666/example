@@ -14,8 +14,8 @@ inputs:
     description: "Id of the project you want the bot to take automatic snapshot"
     required: true
   SHARELATEX_HOST:
-    description: "Hostname of your sharelatex Instance, default is sharelatex.cstcloud.cn"
-    default: "sharelatex.cstcloud.cn"
+    description: "Hostname of your sharelatex Instance, default is latex.cstcloud.cn"
+    default: "latex.cstcloud.cn"
 
 
 runs:
