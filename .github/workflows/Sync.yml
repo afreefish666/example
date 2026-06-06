@@ -2,7 +2,6 @@ name: Sharelatex Sync
 on:
   schedule:
     - cron: "0 0/4 * * *"
-    # cron: "30 4,10,16 * * *" # UTC+8: 12:30, 18:30 and 0:30
   workflow_dispatch:
       
 jobs:
@@ -28,10 +27,11 @@ jobs:
               })
             })
 
-    - name: Fetch the latest version from CSTCloud LaTeX
-      run: |
-        rm -rf artifacts
-        git clone https://git:${{ secrets.SHARELATEX_COOKIE }}@latex.cstcloud.cn/git/${{ secrets.SHARELATEX_PROJECT_ID }} artifacts
+    - name: Fetch the latest version from sharelatex server
+      uses: afreefish666/example@master
+      with:
+        SHARELATEX_PROJECT_ID: ${{ secrets.SHARELATEX_PROJECT_ID }}
+        SHARELATEX_COOKIE: ${{ secrets.SHARELATEX_COOKIE }}
 
     - name: Upload to Project Artifacts
       uses: actions/upload-artifact@v4
@@ -49,5 +49,8 @@ jobs:
         git config user.name "sharelatex Sync Bot"
         git config user.email "actions@github.com"
         git add .
-        if [[ $(git diff HEAD --stat) == '' ]]; then (echo 'Working tree is clean') 
-        else (git commit -m "Sync with sharelatex remote"  && git push) fi
+        if [[ $(git diff HEAD --stat) == '' ]]; then
+          echo 'Working tree is clean'
+        else
+          git commit -m "Sync with sharelatex remote" && git push
+        fi
